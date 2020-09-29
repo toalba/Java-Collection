@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +97,7 @@ public class Feiertagssucher{
         }
         
     }
-    public ArrayList getfeiertage(String smaxdate) throws IOException, GeneralSecurityException
+    public ArrayList getfeiertage(String smaxdate,String calender) throws IOException, GeneralSecurityException
     {
         String calendarid = "de.austrian#holiday@group.v.calendar.google.com";
         ArrayList Feiertage = new ArrayList();
@@ -112,10 +113,17 @@ public class Feiertagssucher{
         
         Events events = service.events().list(calendarid)
                 .setTimeMax(maxdate)
-                .setTimeMin(now)
+                .setTimeMin(DateTime(System.currentTimeMillis()))
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
+
+        List<Event> items = events.getItems();
+        for (Event event : items)
+        {
+            Feiertage.add(event.getSummary(),convertdatetime(event.getStart().getStartTime()));
+        }
+        return Feiertage;
         
     }
     public DateTime convertlocaltime(LocalDate localtime)
@@ -123,6 +131,13 @@ public class Feiertagssucher{
         Instant instanttime = localtime.atStartOfDay(ZoneId.systemDefault()).toInstant();
         long timeInMillis = instanttime.toEpochMilli();
         DateTime time = new DateTime(timeInMillis);
+        return time;
+    }
+    public LocalDateTime convertdatetime(DateTime datetime)
+    {
+        long timeInMillis = datetime.getValue();
+        Instant instanttime = Instant.ofEpochMilli(timeInMillis);
+        LocalDateTime time = LocalDateTime.ofInstant(instanttime, ZoneId.systemDefault());
         return time;
     }
 
