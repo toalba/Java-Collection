@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class Feiertagssucher{
 
         // List the next 10 events from the primary calendar.
         DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("primary")
+        Events events = service.events().list("de.austrian#holiday@group.v.calendar.google.com")
                 .setMaxResults(10)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
@@ -89,6 +90,21 @@ public class Feiertagssucher{
         }
         
     }
-    // Feiertag Kalender id :de.austrian#holiday@group.v.calendar.google.com
+    public ArrayList getfeiertage() throws IOException, GeneralSecurityException
+    {
+        ArrayList Feiertage = new ArrayList();
+
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+            .setApplicationName(APPLICATION_NAME)
+            .build();
+        
+
+
+    }
+
 
 }
+
+    // Feiertag Kalender id :de.austrian#holiday@group.v.calendar.google.com

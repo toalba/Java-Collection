@@ -1,7 +1,7 @@
 *.classpath
 *.project
 *.bat
-/.gradle
-/build
-/tokens
+.gradle/*
+**/build
+**/tokens
 credentials.json
