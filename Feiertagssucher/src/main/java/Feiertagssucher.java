@@ -19,9 +19,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 public class Feiertagssucher{
     private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
@@ -70,7 +76,7 @@ public class Feiertagssucher{
         // List the next 10 events from the primary calendar.
         DateTime now = new DateTime(System.currentTimeMillis());
         Events events = service.events().list("de.austrian#holiday@group.v.calendar.google.com")
-                .setMaxResults(10)
+                //.setTimeMax(max)
                 .setTimeMin(now)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
@@ -90,18 +96,34 @@ public class Feiertagssucher{
         }
         
     }
-    public ArrayList getfeiertage() throws IOException, GeneralSecurityException
+    public ArrayList getfeiertage(String smaxdate) throws IOException, GeneralSecurityException
     {
+        String calendarid = "de.austrian#holiday@group.v.calendar.google.com";
         ArrayList Feiertage = new ArrayList();
+        // format yyyy-MM-dd needed
+        DateTime maxdate = convertlocaltime(LocalDate.parse(smaxdate));
 
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
             .setApplicationName(APPLICATION_NAME)
             .build();
+
         
-
-
+        Events events = service.events().list(calendarid)
+                .setTimeMax(maxdate)
+                .setTimeMin(now)
+                .setOrderBy("startTime")
+                .setSingleEvents(true)
+                .execute();
+        
+    }
+    public DateTime convertlocaltime(LocalDate localtime)
+    {
+        Instant instanttime = localtime.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        long timeInMillis = instanttime.toEpochMilli();
+        DateTime time = new DateTime(timeInMillis);
+        return time;
     }
 
 
