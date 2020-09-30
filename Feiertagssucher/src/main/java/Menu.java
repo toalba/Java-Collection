@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Menu{
 
@@ -10,6 +11,21 @@ public class Menu{
     public Menu(){
         fillup();
     }
+    public String Landoptions()
+    {
+        String[] options = {"Österreich"};
+        String v;
+        Scanner s = new Scanner();
+        System.out.print("Landoptionen:");
+        for (int i = 0; i < options.length; i++) {
+            System.out.print("");
+        }
+        switch (s.next()) {
+            case "Österreich": v = "AUT" ;break;
+        }
+        return Kalenderausw.get(v);
+    }
+
     
 
 }

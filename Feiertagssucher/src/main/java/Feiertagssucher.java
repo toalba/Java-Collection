@@ -141,7 +141,6 @@ public class Feiertagssucher{
         Instant instanttime = Instant.ofEpochMilli(timeInMillis);
         LocalDateTime time = LocalDateTime.ofInstant(instanttime, ZoneId.systemDefault());
         return time;
-
     }
 
 
