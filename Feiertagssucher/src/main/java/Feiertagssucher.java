@@ -112,10 +112,10 @@ public class Feiertagssucher{
             .setApplicationName(APPLICATION_NAME)
             .build();
 
-        
+        DateTime min = new DateTime(System.currentTimeMillis());
         Events events = service.events().list(calendarid)
                 .setTimeMax(maxdate)
-                .setTimeMin(DateTime(System.currentTimeMillis()))
+                .setTimeMin(min)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
@@ -123,7 +123,9 @@ public class Feiertagssucher{
         List<Event> items = events.getItems();
         for (Event event : items)
         {
-            Feiertage.add(event.getSummary(),convertdatetime(event.getStart().getStartTime()));
+            //String evensum = event.getSummary();
+            //Feiertage.add(evensum);
+            Feiertage.add(convertdatetime(event.getStart().getDate()));
         }
         return Feiertage;
         

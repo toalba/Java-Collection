@@ -1,3 +1,4 @@
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -7,24 +8,35 @@ public class Menu{
     private void fillup()
     {
        Kalenderausw.put("AUT", "de.austrian#holiday@group.v.calendar.google.com");
+       Kalenderausw.put("DE", "de.german#holiday@group.v.calendar.google.com");
     }
     public Menu(){
         fillup();
     }
     public String Landoptions()
     {
-        String[] options = {"Österreich"};
+        String[] options = {"Österreich","Deutschland"};
         String v;
-        Scanner s = new Scanner();
+        Scanner s = new Scanner(System.in);
         System.out.print("Landoptionen:");
         for (int i = 0; i < options.length; i++) {
             System.out.print(" "+options[i]+",");
         }
         System.out.println();
         switch (s.next()) {
-            case "Österreich": v = "AUT" ;break;
+            case "Österreich": v = "AUT";break;
+            case "Deutschland": v = "DE";break;
+            default: v = "AUT";
         }
+        s.close();
         return Kalenderausw.get(v);
+    }
+    public String maxdate()
+    {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Gebe das max. Datum in Format <yyyy-MM-dd> ein:");
+        s.close();
+        return s.next();
     }
 
     
