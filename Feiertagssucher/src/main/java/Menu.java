@@ -1,10 +1,15 @@
 import java.util.HashMap;
 
 public class Menu{
-    public String httpsString(String Hash)
+
+    private HashMap<String,String> Kalenderausw = new HashMap<String,String>();
+    private void fillup()
     {
-        Hashmap<String,String> Kalenderausw = new Hashmap<String,String>();
-        Kalenderausw.put("Österreich","de.austrian#holiday@group.v.calendar.google.com");
+       Kalenderausw.put("AUT", "de.austrian#holiday@group.v.calendar.google.com");
     }
+    public Menu(){
+        fillup();
+    }
+    
 
 }
