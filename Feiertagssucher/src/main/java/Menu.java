@@ -18,8 +18,9 @@ public class Menu{
         Scanner s = new Scanner();
         System.out.print("Landoptionen:");
         for (int i = 0; i < options.length; i++) {
-            System.out.print("");
+            System.out.print(" "+options[i]+",");
         }
+        System.out.println();
         switch (s.next()) {
             case "Österreich": v = "AUT" ;break;
         }
