@@ -29,6 +29,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.HashMap;
+
 
 public class Feiertagssucher{
     private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
@@ -139,6 +141,7 @@ public class Feiertagssucher{
         Instant instanttime = Instant.ofEpochMilli(timeInMillis);
         LocalDateTime time = LocalDateTime.ofInstant(instanttime, ZoneId.systemDefault());
         return time;
+
     }
 
 
