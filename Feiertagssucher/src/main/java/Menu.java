@@ -35,8 +35,8 @@ public class Menu{
     {
         Scanner s = new Scanner(System.in);
         System.out.print("Gebe das max. Datum in Format <yyyy-MM-dd> ein:");
-        s.close();
-        return s.next();
+        String datum = s.next();
+        return datum;
     }
 
     

@@ -68,43 +68,12 @@ public class Feiertagssucher{
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-
-        // List the next 10 events from the primary calendar.
-        DateTime now = new DateTime(System.currentTimeMillis());
-        Events events = service.events().list("de.austrian#holiday@group.v.calendar.google.com")
-                //.setTimeMax(max)
-                .setTimeMin(now)
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        if (items.isEmpty()) {
-            System.out.println("No upcoming events found.");
-        } else {
-            System.out.println("Upcoming events");
-            for (Event event : items) {
-                DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    start = event.getStart().getDate();
-                }
-                System.out.printf("%s (%s)\n", event.getSummary(), start);
-            }
-        }
-        
-    }
     public ArrayList getfeiertage(String smaxdate,String calender) throws IOException, GeneralSecurityException
     {
-        String calendarid = "de.austrian#holiday@group.v.calendar.google.com";
+        String calendarid = calender;
         ArrayList Feiertage = new ArrayList();
         // format yyyy-MM-dd needed
-        DateTime maxdate = convertlocaltime(LocalDate.parse(smaxdate));
+        DateTime maxdate = convertlocaltime(LocalDate.parse("2030-01-01"));
 
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -114,8 +83,8 @@ public class Feiertagssucher{
 
         DateTime min = new DateTime(System.currentTimeMillis());
         Events events = service.events().list(calendarid)
-                .setTimeMax(maxdate)
-                .setTimeMin(min)
+                //.setTimeMax(maxdate)
+                //.setTimeMin(min)
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
