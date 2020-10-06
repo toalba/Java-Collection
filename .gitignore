@@ -1,7 +1,6 @@
 *.classpath
 *.project
 *.bat
-.gradle/*
 **/build
 **/tokens
 credentials.json
@@ -10,3 +9,4 @@ credentials.json
 **/build/
 **/.settings/
 **/.vscode/
+
