@@ -5,3 +5,8 @@
 **/build
 **/tokens
 credentials.json
+**/bin/
+**/.gradle/
+**/build/
+**/.settings/
+**/.vscode/
